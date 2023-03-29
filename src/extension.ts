@@ -51,7 +51,7 @@ function convertToJasperSyntax() {
         const selection = editor.selection;
         var text = doc.getText(selection);
 
-        var exp1 = new RegExp(/(set|declare)[\s\S]*?(?=;)/gm, 's');
+        var exp1 = new RegExp(/([Ss][Ee][Tt]|[Dd][Ee][Cc][Ll][Aa][Rr][Ee])[\s\S]*?(?=;)/gm, 's');
         var exp2 = new RegExp(/(@[a-zA-Z]+)/g);
 
         var varBlocks = text.match(exp1);
@@ -60,6 +60,7 @@ function convertToJasperSyntax() {
             var vars = block.match(exp2);
             
             vars?.forEach((value) => {
+                console.log("Value: " + value);
                 text = text.replace(new RegExp(value, 'gm'), (m) => { return `$P{${m}}`; });
             });
         });
