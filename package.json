@@ -3,7 +3,7 @@
 	"displayName": "Jasper Script Converter",
 	"description": "Converts SQL scripts to Jasper syntax.",
 	"publisher": "Jason Tressler",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.39.0",
 		"azdata": "*"
@@ -28,18 +28,17 @@
 			}
 		],
 		"menus": {
-			"editor/context":[
+			"editor/context": [
 				{
 					"submenu": "jasperscriptconverter/convert",
 					"group": "NONE"
 				}
 			],
-			"jasperscriptconverter/convert":[
+			"jasperscriptconverter/convert": [
 				{
 					"command": "jasper-script-converter.convertToJasperSyntax",
 					"when": "editorHasSelection",
 					"group": "NONE"
-					
 				},
 				{
 					"command": "jasper-script-converter.convertToSqlSyntax",
