@@ -35,7 +35,17 @@ function convertToSqlSyntax() {
         var text = doc.getText(selection);
 
         var expression = /\$P\{(@\w+)\}/gm;
+        var matches = text.match(expression);
+        
         text = text.replace(expression, "$1");
+
+        if (text.substring(0,2) !== 'set'){
+            var vars = [...new Set(matches)];
+            vars.forEach(v => v = v.concat(" = ''"));
+            var init = vars.join(',\n');
+            init = 'set '.concat(init,';');
+            text = init.concat(text);
+        }
 
         editor.edit(builder => {
             builder.replace(selection, text);
