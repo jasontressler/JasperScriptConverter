@@ -41,9 +41,9 @@ function convertToSqlSyntax() {
 
         if (text.substring(0,2) !== 'set'){
             var vars = [...new Set(matches)];
-            vars.forEach(v => v = v.concat(" = ''"));
-            var init = vars.join(',\n');
-            init = 'set '.concat(init,';');
+            vars = vars.map(v => v.replace(expression, "$1").concat(" = ''"));
+            var init = vars.join(',\n    ');
+            init = 'set '.concat(init,';\n\n');
             text = init.concat(text);
         }
 
