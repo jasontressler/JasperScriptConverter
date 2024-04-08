@@ -36,10 +36,10 @@ function convertToSqlSyntax() {
 
         var expression = /\$P\{(@\w+)\}/gm;
         var matches = text.match(expression);
-        
+
         text = text.replace(expression, "$1");
 
-        if (text.substring(0,2) !== 'set'){
+        if (matches && matches.length > 0 && !text.match(/^\s*set/gm)){
             var vars = [...new Set(matches)];
             vars = vars.map(v => v.replace(expression, "$1").concat(" = ''"));
             var init = vars.join(',\n    ');
@@ -68,7 +68,7 @@ function convertToJasperSyntax() {
 
         varBlocks?.forEach(block => {
             var vars = block.match(exp2);
-            
+
             vars?.forEach((value) => {
                 console.log("Value: " + value);
                 text = text.replace(new RegExp(value, 'gm'), (m) => { return `$P{${m}}`; });
